@@ -1,0 +1,46 @@
+<script setup>
+const route = useRoute();
+const articles = useArticles();
+const rngArticle = useRandomArticle();
+const allArticles = useAllArticles();
+
+const { data } = await useFetch(
+  "https://api.nytimes.com/svc/topstories/v2/" +
+    route.params.slug +
+    ".json?api-key=uLdJAsHnJIQZiVxdmpg4XWlbbAB1wr6q",
+  {
+    onResponse({ response }) {
+      articles.value = response._data.results;
+      const filterArticler = () => {
+        const filtered = articles.value.filter((article) => {
+          return article.section !== "";
+        });
+        allArticles.value = filtered;
+      };
+
+      const randomArticle = () => {
+        const random = Math.floor(Math.random() * articles.value.length);
+        if (randomArticle.title === "") {
+          randomArticle();
+        } else {
+          return (rngArticle.value = articles.value[random]);
+        }
+      };
+      randomArticle();
+      filterArticler();
+    },
+  }
+);
+
+const pageTitle = defineProps({
+  pageTitle: {
+    type: String,
+  },
+});
+</script>
+
+<template>
+  <PageTitle :pageTitle="route.params.slug + ` News`" />
+  <NewsMenu />
+  <NewsContent />
+</template>
