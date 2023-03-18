@@ -1,6 +1,12 @@
 <script setup>
 const isDarkTheme = useTheme();
 const darkCookie = useCookie("isDarkTheme");
+
+if (darkCookie.value === undefined) {
+  isDarkTheme.value = false;
+  darkCookie.value = false;
+}
+
 const toggleTheme = () => {
   isDarkTheme.value = !isDarkTheme.value;
   darkCookie.value = !darkCookie.value;
