@@ -14,17 +14,44 @@ const toggleTheme = () => {
 </script>
 <template>
   <div
-    class="bg-[#2a2a2a] flex items-center justify-center rounded-[16px] w-10 p-[2px] transition-all duration-500 ease cursor-pointer"
-    :class="isDarkTheme ? 'bg-[#ededea]' : 'bg-[#2a2a2a]'"
+    class="toggle-wrapper"
+    :class="isDarkTheme ? 'bg-dark' : 'bg-light'"
     @click="toggleTheme()"
   >
-    <div
-      class="relative h-4 w-4 rounded-full transition-all duration-500 ease"
-      :class="
-        isDarkTheme
-          ? 'translate-x-2 bg-[#2a2a2a]'
-          : '-translate-x-2 bg-[#ededea]'
-      "
-    />
+    <div class="circle" :class="isDarkTheme ? 'circle-dark' : 'circle-light'" />
   </div>
 </template>
+
+<style scoped>
+.toggle-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  width: 2.5rem;
+  padding: 2px;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+.bg-light {
+  background-color: var(--dark);
+}
+.bg-dark {
+  background-color: var(--light);
+}
+.circle {
+  position: relative;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  transition: all 0.5s ease;
+}
+.circle-light {
+  background-color: var(--light);
+  transform: translateX(-8px);
+}
+.circle-dark {
+  background-color: var(--dark);
+  transform: translateX(8px);
+}
+</style>

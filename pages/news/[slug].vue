@@ -2,6 +2,7 @@
 const route = useRoute();
 const articles = useArticles();
 const rngArticle = useRandomArticle();
+const rngArticle2 = useRandomArticle2();
 const allArticles = useAllArticles();
 
 const { data } = await useFetch(
@@ -26,7 +27,16 @@ const { data } = await useFetch(
           return (rngArticle.value = articles.value[random]);
         }
       };
+      const randomArticle2 = () => {
+        const random = Math.floor(Math.random() * articles.value.length);
+        if (randomArticle2.title === "") {
+          randomArticle2();
+        } else {
+          return (rngArticle2.value = articles.value[random]);
+        }
+      };
       randomArticle();
+      randomArticle2();
       filterArticler();
     },
   }

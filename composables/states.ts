@@ -9,5 +9,7 @@ export const useCategoryMenu = () =>
 export const useArticles = () => useState<[]>("articles", () => []);
 export const useRandomArticle = () =>
   useState<null>("randomArticle", () => null);
+export const useRandomArticle2 = () =>
+  useState<null>("randomArticle2", () => null);
 export const useAllArticles = () => useState<[]>("allArticles", () => []);
 export const useRouterPath = () => useState<[]>("route", () => []);

@@ -26,25 +26,20 @@ const links = [
 </script>
 
 <template>
-  <div class="flex flex-row items-center justify-start gap-6">
-    <button>
-      <Icon
-        name="ion:menu-outline"
-        class="w-6 h-6 scale-100 hover:scale-110 transition-all duration-200 ease"
-        @click="handleMenu"
-      />
-    </button>
-    <ul class="hidden sm:flex flex-row items-start gap-6">
+  <div class="top-menu-wrapper">
+    <Icon name="ion:menu-outline" class="icon" @click="handleMenu" />
+
+    <ul>
       <li v-for="(link, index) in links" :key="index" @click="routeCheck">
         <router-link :to="link.link">
           <div
-            class="p-1 rounded-xl border border-[transparent] scale-100 hover:text-[#af695c] transition-all duration-200 ease"
+            class="link"
             :class="
               routeCheck(index, link.link)
-                ? 'text-[#af695c] hover:scale-105'
+                ? 'is-active'
                 : isDarkTheme
-                ? 'text-[#ededea] hover:border-[#ededea] hover:scale-105'
-                : 'text-[#2a2a2a] hover:border-[#2a2a2a] hover:scale-105'
+                ? 'link-dark'
+                : 'link-light'
             "
           >
             {{ link.name }}
@@ -59,5 +54,60 @@ const links = [
 .router-link-active {
   color: #af695c;
   transition: all 0.2s ease;
+}
+.top-menu-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1.5rem;
+}
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  transform: scale(1);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.icon:hover {
+  transform: scale(1.1);
+}
+ul {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  ul {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1.5rem;
+    list-style-type: none;
+  }
+}
+
+.link {
+  border: 1px solid transparent;
+  transform: scale(1);
+  transition: all 0.2s ease;
+  padding: 0.25rem;
+  border-radius: 0.75rem;
+}
+.link:hover {
+  color: var(--brownie);
+}
+.is-active {
+  color: var(--brownie);
+  transform: scale(1.05);
+}
+.link-light:hover {
+  color: var(--dark);
+  transform: scale(1.05);
+  border: 1px solid var(--dark);
+}
+.link-dark:hover {
+  color: var(--light);
+  transform: scale(1.05);
+  border: 1px solid var(--light);
 }
 </style>

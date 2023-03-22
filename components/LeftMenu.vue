@@ -17,23 +17,21 @@ const links = [
 </script>
 
 <template>
-  <div
-    class="fixed top-0 left-0 h-full w-[18rem] flex flex-col items-center justify-start p-2 bg-black/50 rounded-r z-[21] drop-shadow-2xl"
-  >
-    <div class="flex items-center justify-end w-full">
+  <div class="menu">
+    <div class="exit-wrapper">
       <Icon
         name="ion:md-close-circle-outline"
-        class="w-8 h-8 text-red-400 mb-2 cursor-pointer hover:rotate-180 transition-all duration-200 linear"
+        class="exit-icon"
         @click="handleClose"
       />
     </div>
-    <div class="w-full mt-4 p-2 text-lg">
+    <div class="link-wrapper">
       <ul>
         <li
           v-for="(link, index) in links"
           :key="index"
-          class="flex flex-row items-start justify-start border rounded my-2 p-2 bg-black/10 text-neutral-100 transition-all duration-200 linear cursor-pointer"
-          :class="isDarkTheme ? 'hover:bg-white/10 ' : 'hover:bg-black/30 '"
+          class="left-menu-btn"
+          :class="isDarkTheme ? 'button-dark' : 'button-light'"
           @click="
             router.push(link.link);
             handleClose();
@@ -46,3 +44,73 @@ const links = [
     </div>
   </div>
 </template>
+
+<style scoped>
+.menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 18rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0.5rem;
+  background: rgba(0, 0, 0, 0.5);
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+  z-index: 21;
+}
+.exit-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.exit-icon {
+  width: 2rem;
+  height: 2rem;
+  color: #f87171;
+  cursor: pointer;
+  transform: rotate(0deg);
+  transition: all 0.2s linear;
+}
+.exit-icon:hover {
+  transform: rotate(180deg);
+}
+.link-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+.left-menu-btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width: 12rem;
+  gap: 0.5rem;
+  border: 1px solid var(--light);
+  border-radius: 0.25rem;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  background: rgba(0, 0, 0, 0.1);
+  color: var(--light);
+  cursor: pointer;
+  transition: all 0.2s linear;
+}
+.button-light:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+.button-dark:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+</style>

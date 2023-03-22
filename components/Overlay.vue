@@ -9,8 +9,18 @@ const handleClose = () => {
 </script>
 
 <template>
-  <div
-    class="fixed top-0 left-0 w-screen h-screen bg-[rgba(0,0,0,0.2)] z-[5] backdrop-blur-sm z-20"
-    @click="handleClose"
-  />
+  <div @click="handleClose" />
 </template>
+
+<style scoped>
+div {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(12px);
+  z-index: 20;
+}
+</style>

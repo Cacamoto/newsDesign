@@ -44,27 +44,24 @@ const categories = [
 
 <template>
   <!-- Mobile -->
-  <div
-    class="flex md:hidden flex-row items-center gap-4 text-xl my-6 cursor-pointer scale-100 hover:scale-105 transition-all duration-200 ease"
-    @click="handleCategoryMenu"
-  >
+  <div class="mobile-submenu-btn" @click="handleCategoryMenu">
     <span>Categories</span>
     <Icon
       name="ion:caret-down-circle-outline"
-      class="w-6 h-6 transition-all duration-200 ease"
-      :class="isCategoryMenuOpen ? 'rotate-0' : 'rotate-90'"
+      class="mobile-submenu-icon"
+      :class="isCategoryMenuOpen ? 'mobile-submenu-icon-open' : ''"
     />
   </div>
-  <div
-    v-if="isCategoryMenuOpen"
-    class="flex md:hidden flex-row items-start jusitify-start flex-wrap gap-4 mb-6 z-[3]"
-  >
+  <div v-if="isCategoryMenuOpen" class="mobile-submenu-open">
     <TransitionGroup name="dropIn" appear>
       <NuxtLink
         v-for="category in categories"
         :key="category.name"
         :to="category.link"
-        class="border p-1 px-2 rounded-xl scale-100 hover:scale-105 hover:text-[#af695c] transition-all duration-200 ease"
+        class="mobile-submenu-link"
+        :class="
+          isDarkTheme ? 'mobile-submenu-link-dark' : 'mobile-submenu-link-ligth'
+        "
       >
         <span>{{ category.name }}</span>
       </NuxtLink>
@@ -73,15 +70,15 @@ const categories = [
 
   <!-- Desktop -->
   <Transition name="subMenuSlide" appear>
-    <div
-      class="relative hidden md:flex flex-row items-center justify-start gap-6 w-full my-16 z-[3]"
-    >
+    <div class="desktop-submenu">
       <NuxtLink
         v-for="category in categories"
         :key="category.name"
         :to="category.link"
-        class="border p-1 px-2 rounded-xl scale-100 hover:scale-105 hover:text-[#af695c] transition-all duration-200 ease"
-        :class="isDarkTheme ? 'border-[#ededea]' : 'border-[#2a2a2a]'"
+        class="mobile-submenu-link"
+        :class="
+          isDarkTheme ? 'mobile-submenu-link-dark' : 'mobile-submenu-link-ligth'
+        "
       >
         <span>{{ category.name }}</span>
       </NuxtLink>
@@ -93,5 +90,86 @@ const categories = [
 .router-link-active {
   color: #af695c;
   transition: all 0.2s ease;
+}
+.mobile-submenu-btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  cursor: pointer;
+  transform: scale(1);
+  transition: all 0.2s ease;
+}
+@media (min-width: 640px) {
+  .mobile-submenu-btn {
+    display: none;
+  }
+}
+.mobile-submenu-btn:hover {
+  transform: scale(1.05);
+}
+.mobile-submenu-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  transform: rotate(90deg);
+  transition: all 0.2s ease;
+}
+.mobile-submenu-icon-open {
+  transform: rotate(0deg);
+}
+.mobile-submenu-open {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  z-index: 3;
+}
+
+@media (min-width: 640px) {
+  .mobile-submenu-open {
+    display: none;
+  }
+}
+.mobile-submenu-link {
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid transparent;
+  transform: scale(1);
+  transition: all 0.2s ease;
+}
+.mobile-submenu-link-ligth {
+  border: 1px solid var(--dark);
+}
+.mobile-submenu-link-dark {
+  border: 1px solid var(--light);
+}
+.mobile-submenu-link:hover {
+  transform: scale(1.05);
+  color: var(--brownie);
+}
+
+.desktop-submenu {
+  position: relative;
+  display: none;
+}
+@media (min-width: 640px) {
+  .desktop-submenu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1.5rem;
+    width: 100%;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    z-index: 3;
+  }
 }
 </style>

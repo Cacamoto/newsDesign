@@ -2,102 +2,193 @@
 const isDarkTheme = useTheme();
 const isOverlayOpen = useOverlay();
 const isMenuOpen = useMenu();
-// const articles = useArticles();
-// const rngArticle = useRandomArticle();
-// const allArticles = useAllArticles();
-
-// const { data } = await useFetch(
-//   "https://api.nytimes.com/svc/topstories/v2/world.json?api-key=uLdJAsHnJIQZiVxdmpg4XWlbbAB1wr6q",
-//   {
-//     onResponse({ response }) {
-//       articles.value = response._data.results;
-//     },
-//   }
-// );
-// const filterArticler = () => {
-//   const filtered = articles.value.filter((article) => {
-//     return article.section !== "";
-//   });
-//   allArticles.value = filtered;
-// };
-
-// const randomArticle = () => {
-//   const random = Math.floor(Math.random() * articles.value.length);
-//   if (randomArticle.title === "") {
-//     randomArticle();
-//   } else {
-//     return (rngArticle.value = articles.value[random]);
-//   }
-// };
-
-// onServerPrefetch(() => {
-//   randomArticle();
-//   filterArticler();
-// });
 </script>
 
 <template>
-  <main
-    class="relative w-screen min-h-screen bg-[#f9f4ed] overflow-x-hidden transition-all duration-500 ease z-[2]"
-    :class="
-      isDarkTheme
-        ? 'bg-[rgb(42,42,42)] text-[#eaeaea]'
-        : 'bg-[#f9f4ed] text-[#2a2a2a]'
-    "
-  >
+  <main :class="isDarkTheme ? 'darkT' : 'lightT'">
     <!-- Overlay n Menu -->
     <Overlay v-if="isOverlayOpen" />
     <Transition name="slide">
       <LeftMenu v-if="isMenuOpen" />
     </Transition>
     <!-- Background -->
-    <div
-      class="fixed -top-[14rem] -right-[14rem] h-[28rem] w-[28rem] sm:-top-[20rem] sm:-right-[20rem] sm:h-[40rem] sm:w-[40rem] rounded-full opacity-10 blur-2xl z-[1]"
-      :class="
-        isDarkTheme
-          ? 'bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-orange-600 via-red-600 to-orange-800'
-          : 'bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-rose-400 via-pink-400 to-rose-600'
-      "
-    />
-    <div
-      class="absolute bottom-[10%] -left-[12rem] h-[24rem] w-[24rem] sm:h-[40rem] sm:w-[40rem] rounded-full opacity-10 blur-2xl z-[1]"
-      :class="
-        isDarkTheme
-          ? 'bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-amber-400 via-yellow-400 to-orange-400'
-          : 'bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-orange-600 via-red-800 to-orange-800'
-      "
-    />
+    <div class="blob1" :class="isDarkTheme ? 'blob1Dark' : 'blob1Light'" />
+    <div class="blob2" :class="isDarkTheme ? 'blob2Dark' : 'blob2Light'" />
     <div />
     <!-- Header -->
-    <header
-      class="fixed top-0 left-0 w-screen flex flex-row items-center justify-between py-4 px-6 z-[4] backdrop-filter backdrop-blur-md shadow-md"
-    >
+    <header>
       <HeaderMenuToggle />
-      <div class="flex flex-row items-center gap-4">
-        <button
-          class="p-1 rounded-xl border border-[transparent] scale-100 hover:text-[#af695c] transition-all duration-200 ease"
-          :class="
-            isDarkTheme
-              ? 'hover:border-[#ededea] hover:scale-105'
-              : 'hover:border-[#2a2a2a] hover:scale-105'
-          "
-        >
+      <div class="header-right">
+        <button :class="isDarkTheme ? 'button-dark' : 'button-light'">
           Contact Us
         </button>
         <HeaderThemeToggle />
       </div>
     </header>
     <!-- Content -->
-    <div
-      class="w-full h-screen flex flex-col items-start justify-start p-6 pt-32 z-[3]"
-    >
+    <div class="wrapper">
       <slot />
     </div>
   </main>
 </template>
-
 <style>
-main {
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   font-family: Poppins, sans-serif;
+}
+main {
+  --light: #f9f4ed;
+  --dark: #2a2a2a;
+  --brownie: #af695c;
+  font-family: Poppins, sans-serif;
+  position: relative;
+  width: 100wv;
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: all 0.5s ease;
+
+  z-index: 2;
+}
+.lightT {
+  color: var(--dark);
+  background: var(--light);
+}
+.darkT {
+  color: var(--light);
+  background: var(--dark);
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+</style>
+
+<style scoped>
+.wrapper {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 1.5rem;
+  padding-top: 8rem;
+  z-index: 3;
+}
+
+button {
+  padding: 4px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  font-size: 1rem;
+  transform: scale(1);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+button:hover {
+  transform: scale(1.05);
+}
+.button-light {
+  color: var(--dark);
+  background: transparent;
+}
+.button-dark {
+  color: var(--light);
+  background: transparent;
+}
+.button-light:hover {
+  border: 1px solid var(--dark);
+}
+.button-dark:hover {
+  border: 1px solid var(--light);
+}
+.header-right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: calc(100% - 2rem);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  z-index: 4;
+  backdrop-filter: blur(12px);
+}
+.blob2 {
+  position: absolute;
+  bottom: 10%;
+  left: -12rem;
+  height: 24rem;
+  width: 24rem;
+  border-radius: 50%;
+  opacity: 0.1;
+  filter: blur(40px);
+  z-index: 1;
+}
+@media (min-width: 640px) {
+  .blob2 {
+    height: 40rem;
+    width: 40rem;
+  }
+}
+.blob2Light {
+  background: rgb(48, 0, 255);
+  background: radial-gradient(
+    circle,
+    rgba(48, 0, 255, 1) 0%,
+    rgba(255, 34, 106, 1) 100%
+  );
+}
+.blob2Dark {
+  background: rgb(0, 255, 221);
+  background: radial-gradient(
+    circle,
+    rgb(249, 162, 32) 0%,
+    rgb(255, 71, 138) 100%
+  );
+}
+.blob1 {
+  position: fixed;
+  top: -14rem;
+  right: -14rem;
+  height: 28rem;
+  width: 28rem;
+  border-radius: 50%;
+  opacity: 0.1;
+  filter: blur(2rem);
+  z-index: 1;
+}
+@media (min-width: 640px) {
+  .blob1 {
+    top: -20rem;
+    right: -20rem;
+    height: 40rem;
+    width: 40rem;
+  }
+}
+.blob1Dark {
+  background: rgb(255, 152, 0);
+  background: radial-gradient(
+    circle,
+    rgba(255, 152, 0, 1) 0%,
+    rgba(255, 87, 34, 1) 100%
+  );
+}
+.blob1Light {
+  background: rgb(63, 94, 251);
+  background: radial-gradient(
+    circle,
+    rgb(232, 31, 195) 0%,
+    rgba(252, 70, 107, 1) 100%
+  );
 }
 </style>

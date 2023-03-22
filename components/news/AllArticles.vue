@@ -1,5 +1,5 @@
 <script setup>
-const allArticles = useAllArticles();
+const rngArticle2 = useRandomArticle2();
 
 const goToArticle = (link) => {
   window.open(link, "_blank");
@@ -7,98 +7,75 @@ const goToArticle = (link) => {
 </script>
 
 <template>
-  <!-- Mobile -->
-  <div class="sm:hidden block overflow-x-scroll w-full pb-4">
-    <div class="flex flex-row gap-4 w-[calc((100vw-2rem)*4)]">
-      <div
-        v-for="(article, index) in allArticles"
-        :key="index"
-        class="flex flex-col ites-start justify-start gap-4 w-full"
-      >
-        <div
-          class="relative w-[20rem] aspect-square bg-[#af695c] flex items-center justify-center"
-        >
-          <nuxt-img
-            :src="article.multimedia[0].url"
-            fit="cover"
-            class="w-screen aspect-square z-[2]"
-          />
-          <div class="absolute">
-            <Icon name="ion:load-a" class="w-6 h-6 animate-spin" /> Loading...
-          </div>
-        </div>
+  <div class="article-image-wrapper">
+    <nuxt-img
+      :src="rngArticle2.multimedia[0].url"
+      fit="cover"
+      class="nuxt-img-style"
+    />
+    <div class="absolute">
+      <Icon name="ion:load-a" class="article-loading-icon" /> Loading...
+    </div>
+  </div>
+  <span class="article-title">{{ rngArticle2.title }}</span>
 
-        <span class="text-xl">{{ article.title }}</span>
-        <span class="text-sm">{{ article.abstract }}</span>
-        <span
-          class="opacity-70 cursor-pointer hover:opacity-100 transition-all duration-200 ease"
-          @click="goToArticle(article.url)"
-          >Read More</span
-        >
-      </div>
-    </div>
-  </div>
-  <!-- Mid -->
-
-  <div class="hidden sm:block lg:hidden overflow-y-scroll w-full pb-4">
-    <div class="flex flex-col gap-4 w-full max-h-[42.5rem]">
-      <div
-        v-for="(article, index) in allArticles"
-        :key="index"
-        class="flex flex-col ites-start justify-start gap-4 w-full"
-      >
-        <div
-          class="relative w-full aspect-square bg-[#af695c] flex items-center justify-center"
-        >
-          <div class="absolute">
-            <Icon name="ion:load-a" class="w-6 h-6 animate-spin" /> Loading...
-          </div>
-          <nuxt-img
-            :src="article.multimedia[0].url"
-            fit="cover"
-            class="w-screen aspect-square z-[2]"
-          />
-        </div>
-        <span class="text-2xl">{{ article.title }}</span>
-        <span class="text-sm">{{ article.abstract }}</span>
-        <span
-          class="opacity-70 cursor-pointer hover:opacity-100 transition-all duration-200 ease"
-          @click="goToArticle(article.url)"
-          >Read More</span
-        >
-      </div>
-    </div>
-  </div>
-  <!-- Desktop -->
-  <div class="hidden lg:block overflow-y-scroll w-full lg:max-h-max pb-4 mb-4">
-    <div
-      class="flex flex-col gap-4 w-full lg:max-h-[calc(50vw-5.1rem)] xl:max-h-[calc(50vw-5.3rem)]"
-    >
-      <div
-        v-for="(article, index) in allArticles"
-        :key="index"
-        class="flex flex-col ites-start justify-start gap-4 w-full"
-      >
-        <div
-          class="relative w-full aspect-square bg-[#af695c] flex items-center justify-center"
-        >
-          <div class="absolute">
-            <Icon name="ion:load-a" class="w-6 h-6 animate-spin" /> Loading...
-          </div>
-          <nuxt-img
-            :src="article.multimedia[0].url"
-            fit="cover"
-            class="w-screen aspect-square z-[2]"
-          />
-        </div>
-        <span class="text-xl xl:text-2xl">{{ article.title }}</span>
-        <span class="text-sm">{{ article.abstract }}</span>
-        <span
-          class="opacity-70 cursor-pointer hover:opacity-100 transition-all duration-200 ease"
-          @click="goToArticle(article.url)"
-          >Read More</span
-        >
-      </div>
-    </div>
-  </div>
+  <span class="article-abstract">
+    {{ rngArticle2.abstract }}
+  </span>
+  <span class="article-read-more" @click="goToArticle(rngArticle2.url)"
+    >Read More</span
+  >
 </template>
+
+<style>
+.article-image-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-color: var(--brownie);
+}
+.nuxt-img-style {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  z-index: 2;
+}
+.absolute {
+  position: absolute;
+}
+.article-loading-icon {
+  position: absolute;
+  width: 1.5rem;
+  height: 1.5rem;
+  animation: spin 1s linear infinite;
+}
+.article-title {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+.article-abstract {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+.article-read-more {
+  opacity: 0.7;
+  margin-bottom: 2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.article-read-more:hover {
+  opacity: 1;
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+</style>

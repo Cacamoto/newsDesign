@@ -1,11 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: [
-    "@nuxtjs/tailwindcss",
-    "nuxt-icon",
-    "@nuxtjs/google-fonts",
-    "@nuxt/image-edge",
-  ],
+  modules: ["nuxt-icon", "@nuxtjs/google-fonts", "@nuxt/image-edge"],
   googleFonts: {
     families: {
       Poppins: true,

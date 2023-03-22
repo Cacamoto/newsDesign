@@ -7,26 +7,22 @@ const goToArticle = (link) => {
 </script>
 
 <template>
-  <div
-    class="relative w-full aspect-square bg-[#af695c] flex items-center justify-center"
-  >
+  <div class="article-image-wrapper">
     <nuxt-img
       :src="rngArticle.multimedia[0].url"
       fit="cover"
-      class="w-full aspect-square z-[2]"
+      class="nuxt-img-style"
     />
     <div class="absolute">
-      <Icon name="ion:load-a" class="w-6 h-6 animate-spin" /> Loading...
+      <Icon name="ion:load-a" class="article-loading-icon" /> Loading...
     </div>
   </div>
-  <span class="text-2xl">{{ rngArticle.title }}</span>
+  <span class="article-title">{{ rngArticle.title }}</span>
 
-  <span class="text-sm">
+  <span class="article-abstract">
     {{ rngArticle.abstract }}
   </span>
-  <span
-    class="opacity-70 mb-8 cursor-pointer hover:opacity-100 transition-all duration-200 ease"
-    @click="goToArticle(rngArticle.url)"
+  <span class="article-read-more" @click="goToArticle(rngArticle.url)"
     >Read More</span
   >
 </template>
