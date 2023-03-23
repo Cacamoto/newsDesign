@@ -48,7 +48,6 @@ const goToArticle = (link) => {
   position: absolute;
 }
 .article-loading-icon {
-  position: absolute;
   width: 1.5rem;
   height: 1.5rem;
   animation: spin 1s linear infinite;

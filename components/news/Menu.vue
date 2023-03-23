@@ -122,6 +122,7 @@ const categories = [
   transform: rotate(0deg);
 }
 .mobile-submenu-open {
+  width: calc(100% - 3rem);
   display: flex;
   flex-direction: row;
   align-items: flex-start;
